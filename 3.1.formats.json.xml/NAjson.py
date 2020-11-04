@@ -17,17 +17,15 @@ def sort_list(file_name, count_letter = 7, top = 10):
 
     temp = {}
 
-    for words in reversed(all_desc):
-        if len(words) < count_letter:
-            all_desc.remove(words)
+    all_desc = [words for words in all_desc if len(words) > count_letter]
+    for words in all_desc:
+        if temp.get(all_desc.count(words)) == None:
+            temp[all_desc.count(words)] = {words}
         else:
-            if temp.get(all_desc.count(words)) == None:
-                temp[all_desc.count(words)] = {words}
-            else:
-                temp[all_desc.count(words)].add(words)
+            temp[all_desc.count(words)].add(words)
 
     for countdesc in sorted(temp.keys())[-top:]:
         print(f'Слова {temp[countdesc]} встречаются {countdesc} раз.')
     return
 
-sort_list('newsafr.json',4 , 10)
+sort_list('newsafr.json',10 , 5)
