@@ -12,7 +12,7 @@ def create_list(file_name):
     all_desc = all_desc.split(' ')
     return all_desc
 
-def sort_list(file_name, count_letter):
+def sort_list(file_name, count_letter = 7, top = 10):
     all_desc = create_list(file_name)
 
     temp = {}
@@ -26,8 +26,8 @@ def sort_list(file_name, count_letter):
             else:
                 temp[all_desc.count(words)].add(words)
 
-    for countdesc in sorted(temp.keys())[-10:]:
+    for countdesc in sorted(temp.keys())[-top:]:
         print(f'Слова {temp[countdesc]} встречаются {countdesc} раз.')
     return
 
-sort_list('newsafr.json', 5)
+sort_list('newsafr.json',4 , 10)
