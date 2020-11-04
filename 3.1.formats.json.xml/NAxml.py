@@ -12,18 +12,23 @@ def create_list(file_name):
 
 def sort_list(file_name, count_letter = 7, top = 10):
     all_desc = create_list(file_name)
-
     temp = {}
 
     all_desc = [words for words in all_desc if len(words) > count_letter]
     for words in all_desc:
-        if temp.get(all_desc.count(words)) == None:
-            temp[all_desc.count(words)] = {words}
+        if temp.get(words) == None:
+            temp[words] = 1
         else:
-            temp[all_desc.count(words)].add(words)
+            temp[words] += 1
+    all_desc = list(temp.items())
 
-    for countdesc in sorted(temp.keys())[-top:]:
-        print(f'Слова {temp[countdesc]} встречаются {countdesc} раз.')
+    def sortbycount(inputdata):
+        return inputdata[1]
+
+    all_desc.sort(key=sortbycount)
+    for countdesc in all_desc[-top:]:
+        print(f'Слово {countdesc[0]} встречается {countdesc[1]} раз.')
+
     return
 
-sort_list('newsafr.xml',10 , 3)
+sort_list('newsafr.xml',10 , 10)
